@@ -21,11 +21,14 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                echo 'Building Docker image...'
-                sh "docker build -t $APP_NAME:$IMAGE_TAG ."
-            }
+    steps {
+        echo 'Building Docker image...'
+        dir('NOTES_CICD') {
+            sh 'docker build -t notes-cicd-app:v1 .'
         }
+    }
+}
+
 
         stage('Stop and Remove Previous Container') {
             steps {
